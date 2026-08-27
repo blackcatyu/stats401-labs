@@ -39,12 +39,12 @@ d3.csv("../data/students.csv", d => ({
         .attr("fill", d => color(d.score));
 
     
-    svg.selectAll(".score-top")
+    svg.selectAll(".score-label")
         .data(data)
         .join("text")
-        .attr("class", "score-top")
+        .attr("class", "score-label")
         .attr("x", centerX)
-        .attr("y", d => baseline - y(d.score) - 8)
+        .attr("y", baseline + 40)
         .attr("text-anchor", "middle")
         .text(d => d.score);
 
