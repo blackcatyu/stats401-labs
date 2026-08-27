@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    margin-top: 30px;
+}
+
+p {
+    line-height: 1.6;
+}
+
+#chart {
+    margin-top: 30px;
+}
+
+.lab-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 30px 0;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+}
+
+.lab-nav a {
+    padding: 8px 14px;
+    text-decoration: none;
+    background: #f1f1f1;
+    color: #333;
+    border-radius: 5px;
+}
+
+.lab-nav a:hover {
+    background: #333;
+    color: white;
+}
+
+
+/* Lab 1*/
+.name-label {
+    font-size: 14px;
+    font-weight: 600;
+    fill: #333;
+}
+
+.score-top {
+    font-size: 13px;
+    font-weight: bold;
+    fill: #1f4e79;
+}
+
+svg rect {
+    transition: fill 0.2s, transform 0.2s;
+}
+
+svg rect:hover {
+    fill: #ff7f50;
+}
