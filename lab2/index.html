@@ -1,27 +1,84 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 2</title>
+    <title>Lab 2 - Multivariate Visualization</title>
 
+    <link rel="stylesheet"
+          href="../css/style.css">
 </head>
 
 <body>
 
-    <h1>Lab 2</h1>
+<header>
+    <h1>STATS 401</h1>
+    <p>Data Acquisition and Visualization</p>
+</header>
+
+<nav class="lab-nav">
+    <a href="../lab1/index.html">Lab 1</a>
+    <a href="../lab2/index.html">Lab 2</a>
+    <a href="../lab3/index.html">Lab 3</a>
+    <a href="../lab4/index.html">Lab 4</a>
+    <a href="../lab5/index.html">Lab 5</a>
+    <a href="../lab6/index.html">Lab 6</a>
+    <a href="../lab7/index.html">Lab 7</a>
+    <a href="../lab8/index.html">Lab 8</a>
+    <a href="../lab9/index.html">Lab 9</a>
+    <a href="../lab10/index.html">Lab 10</a>
+</nav>
+
+<main>
+    <h2>Lab 2: Multivariate Visualization with D3</h2>
 
     <p>
-        Lab 2 will be added here.
+        This visualization explores the relationship among
+        study hours, exam score, major, and year level.
     </p>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+    <div id="chart"></div>
+
+    <hr style="margin: 50px 0;">
+
+    <h2>Assignment: City Data — A Compass-Layout Multivariate View</h2>
+    <p>
+        Regions are arranged by their real-world direction
+        (North top, South bottom, West left, East right). Within each panel,
+        development level sets horizontal position, population sets bubble size,
+        and temperature sets color.
+    </p>
+
+    <div id="chart-assignment"></div>
+
+    <section id="justification">
+    <h3>Design Justification</h3>
+    <p>
+        I mapped each variable to a visual channel that matches its
+        measurement type. Average temperature (interval, continuous) is
+        placed on the x-axis, since position is the most precise channel
+        and lets viewers compare exact values. Development level (ordinal)
+        is placed on the y-axis in three stacked bands, so its natural
+        order (Low, Medium, High) reads directly as vertical height, with
+        higher development sitting higher up. Population (ratio) is encoded
+        as bubble size; I used a square-root scale so that circle area,
+        not radius, is proportional to population, avoiding visual
+        exaggeration of large cities. Region (nominal) is encoded with
+        color, because color distinguishes unordered categories without
+        implying any ranking. Together, these choices let viewers quickly
+        spot patterns — for example, whether warmer cities tend to have
+        lower development levels, or whether larger cities cluster in
+        particular regions.
+    </p>
+</section>
+
+    <div id="tooltip" class="tooltip"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="lab2.js"></script>
 
 </body>
-
 </html>
