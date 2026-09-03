@@ -1,27 +1,299 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 3 — Web Data Acquisition</title>
+    <style>
+        :root {
+            --ink: #21201c;
+            --muted: #6b665e;
+            --line: #e0ddd5;
+            --accent: #8a5a2b;
+            --accent-soft: #f3ede3;
+            --bg: #ffffff;
+        }
 
-    <title>Lab 3</title>
+        * { box-sizing: border-box; }
 
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+            color: var(--ink);
+            background: var(--bg);
+            line-height: 1.55;
+        }
+
+        main {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 5rem;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            margin: 0 0 0.25rem;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin: 0 0 2rem;
+        }
+
+        .dataset-info {
+            background: var(--accent-soft);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .dataset-info h2 {
+            font-size: 1.05rem;
+            margin: 0 0 0.75rem;
+        }
+
+        .dataset-info dl {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: 0.35rem 1.25rem;
+            margin: 0;
+        }
+
+        .dataset-info dt {
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .dataset-info dd { margin: 0; }
+
+        .hint {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 0.92rem;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background: var(--ink);
+            color: #fff;
+            text-align: left;
+            padding: 0.6rem 0.85rem;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        thead th:hover { background: #3a382f; }
+
+        tbody td {
+            padding: 0.5rem 0.85rem;
+            border-bottom: 1px solid var(--line);
+            vertical-align: top;
+        }
+
+        tbody tr:nth-child(even) { background: #faf8f4; }
+        tbody tr:hover { background: var(--accent-soft); }
+
+        td.empty-cell { color: var(--muted); }
+
+        tbody tr.no-results td {
+            text-align: center;
+            color: var(--muted);
+            padding: 2rem 0.85rem;
+        }
+
+        .stats-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat {
+            flex: 1 1 130px;
+            background: #fff;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 0.85rem 1rem;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.35rem;
+            line-height: 1.2;
+        }
+
+        .stat span {
+            color: var(--muted);
+            font-size: 0.8rem;
+        }
+
+        .dept-breakdown { margin-bottom: 2rem; }
+
+        .dept-breakdown h2 {
+            font-size: 1.05rem;
+            margin: 0 0 0.9rem;
+        }
+
+        .dept-bar-row {
+            display: grid;
+            grid-template-columns: 150px 1fr 3.5rem;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.85rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .dept-bar-name {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .dept-bar-track {
+            background: var(--accent-soft);
+            border-radius: 4px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .dept-bar-fill {
+            background: var(--accent);
+            height: 100%;
+        }
+
+        .dept-bar-count {
+            color: var(--muted);
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        #search-input {
+            flex: 1 1 260px;
+            padding: 0.55rem 0.8rem;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            font: inherit;
+            color: var(--ink);
+        }
+
+        #search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px var(--accent-soft);
+        }
+
+        .row-count {
+            color: var(--muted);
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .table-wrap {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            max-height: 65vh;
+            overflow: auto;
+        }
+
+        .table-wrap table { font-size: 0.92rem; }
+
+        .lab-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-width: 960px;
+            margin: 2rem auto 0;
+            padding: 0 1.5rem 15px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .lab-nav a {
+            padding: 8px 14px;
+            text-decoration: none;
+            background: #f1f1f1;
+            color: #333;
+            border-radius: 5px;
+        }
+
+        .lab-nav a:hover {
+            background: #333;
+            color: white;
+        }
+    </style>
 </head>
-
 <body>
+    <nav class="lab-nav">
+        <a href="../lab1/index.html">Lab 1</a>
+        <a href="../lab2/index.html">Lab 2</a>
+        <a href="../lab3/index.html">Lab 3</a>
+        <a href="../lab4/index.html">Lab 4</a>
+        <a href="../lab5/index.html">Lab 5</a>
+        <a href="../lab6/index.html">Lab 6</a>
+        <a href="../lab7/index.html">Lab 7</a>
+        <a href="../lab8/index.html">Lab 8</a>
+        <a href="../lab9/index.html">Lab 9</a>
+        <a href="../lab10/index.html">Lab 10</a>
+    </nav>
+    <main>
+        <h1>Lab 3: Web Data Acquisition</h1>
+        <p class="subtitle">STATS 401 — Data Acquisition and Visualization</p>
 
-    <h1>Lab 3</h1>
+        <section class="dataset-info">
+            <h2>About this dataset</h2>
+            <dl>
+                <dt>Contents</dt>
+                <dd>Artwork records from a museum collection — title, artist, year created, artwork type, and curatorial department.</dd>
+                <dt>Source</dt>
+                <dd>Art Institute of Chicago public API (https://api.artic.edu/api/v1/artworks).</dd>
+                <dt>Method</dt>
+                <dd>REST API requests with Python <code>requests</code>, parsing the returned JSON.</dd>
+                <dt>Records</dt>
+                <dd>1,000 artworks (paged 100 at a time).</dd>
+            </dl>
+        </section>
 
-    <p>
-        Lab 3 will be added here.
-    </p>
+        <section class="stats-row" id="stats-row"></section>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+        <section class="dept-breakdown">
+            <h2>Artworks by department</h2>
+            <div id="dept-chart"></div>
+        </section>
 
+        <div class="toolbar">
+            <input id="search-input" type="search" placeholder="Search title, artist, type, or department…">
+            <span class="row-count" id="row-count"></span>
+        </div>
+
+        <p class="hint">Click any column heading to sort. Click again to reverse the order.</p>
+
+        <div class="table-wrap">
+            <table id="data-table">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <p><a href="../index.html">← Back to home</a></p>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="lab3.js"></script>
 </body>
-
 </html>
