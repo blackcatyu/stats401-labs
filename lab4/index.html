@@ -1,27 +1,81 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 4</title>
+    <title>Lab 4 - Tweet Sentiment</title>
 
+    <link rel="stylesheet"
+          href="../css/style.css">
 </head>
 
 <body>
 
-    <h1>Lab 4</h1>
+<header>
+    <h1>STATS 401</h1>
+    <p>Data Acquisition and Visualization</p>
+</header>
+
+<nav class="lab-nav">
+    <a href="../lab1/index.html">Lab 1</a>
+    <a href="../lab2/index.html">Lab 2</a>
+    <a href="../lab3/index.html">Lab 3</a>
+    <a href="../lab4/index.html">Lab 4</a>
+    <a href="../lab5/index.html">Lab 5</a>
+    <a href="../lab6/index.html">Lab 6</a>
+    <a href="../lab7/index.html">Lab 7</a>
+    <a href="../lab8/index.html">Lab 8</a>
+    <a href="../lab9/index.html">Lab 9</a>
+    <a href="../lab10/index.html">Lab 10</a>
+</nav>
+
+<main>
+    <h2>Lab 4: Cleaning Web Data for Visualization</h2>
 
     <p>
-        Lab 4 will be added here.
+        14,640 tweets directed at six US airlines (Feb 2015) were cleaned
+        and deduplicated to 14,485 records, then every one was scored for
+        sentiment with a Twitter-tuned RoBERTa model
+        (<code>cardiffnlp/twitter-roberta-base-sentiment-latest</code>).
+        The chart below shows the resulting sentiment mix for each airline,
+        ordered from most negative to most positive average score.
     </p>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+    <div id="chart"></div>
+    <div id="tooltip" class="tooltip"></div>
+
+    <section id="justification">
+        <h3>About this analysis</h3>
+        <p>
+            The raw dataset is a 2015 Crowdflower scrape of tweets
+            mentioning six US airlines, redistributed on GitHub as
+            <code>Tweets.csv</code>. Cleaning dropped two columns that were
+            over 99% empty, collapsed 80 exact-duplicate rows plus 75
+            duplicate <code>tweet_id</code>s (14,640 → 14,485 rows), and
+            parsed <code>tweet_created</code> into date, hour, and weekday.
+            Sentiment came from a RoBERTa model fine-tuned on Twitter text,
+            which outputs negative/neutral/positive probabilities for every
+            one of the 14,485 cleaned tweets; a continuous score (positive
+            − negative probability) is averaged per airline for this
+            chart. RoBERTa's output is a model estimate, not ground truth —
+            it can miss sarcasm and airline-specific slang, and the dataset
+            also keeps human-labeled sentiment for comparison. The chart
+            encodes sentiment (negative/neutral/positive share, stacked)
+            against airline, and shows two clear patterns: US Airways and
+            American have the largest negative share (65% and 59%) and
+            most negative average score (−0.44 and −0.37), while Delta and
+            Virgin America are the only airlines with a positive average
+            score and the largest positive share (34% and 38%).
+        </p>
+    </section>
+
+    <a href="../index.html">← Back to home</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="lab4.js"></script>
 
 </body>
-
 </html>

@@ -65,6 +65,17 @@ svg rect:hover {
     fill: #ff7f50;
 }
 
+/* Lab 4 */
+.sentiment-score-label {
+    font-size: 12px;
+    fill: #333;
+}
+
+.legend-item text {
+    font-size: 12px;
+    fill: #333;
+}
+
 .tooltip {
     position: absolute;
     background: white;
