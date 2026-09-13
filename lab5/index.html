@@ -1,27 +1,191 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 5</title>
+    <title>Lab 5 - Transit Network</title>
 
+    <link rel="stylesheet"
+          href="../css/style.css">
 </head>
 
 <body>
 
-    <h1>Lab 5</h1>
+<header>
+    <h1>STATS 401</h1>
+    <p>Data Acquisition and Visualization</p>
+</header>
+
+<nav class="lab-nav">
+    <a href="../lab1/index.html">Lab 1</a>
+    <a href="../lab2/index.html">Lab 2</a>
+    <a href="../lab3/index.html">Lab 3</a>
+    <a href="../lab4/index.html">Lab 4</a>
+    <a href="../lab5/index.html">Lab 5</a>
+    <a href="../lab6/index.html">Lab 6</a>
+    <a href="../lab7/index.html">Lab 7</a>
+    <a href="../lab8/index.html">Lab 8</a>
+    <a href="../lab9/index.html">Lab 9</a>
+    <a href="../lab10/index.html">Lab 10</a>
+</nav>
+
+<main>
+    <h2>Lab 5: Interactive Network Visualization</h2>
 
     <p>
-        Lab 5 will be added here.
+        A synthetic urban transit network of 50 stations across five districts,
+        joined by 50 direct routes. Stations carry three variables
+        (<code>district</code>, <code>daily_passengers</code>,
+        <code>station_type</code>); routes carry two
+        (<code>travel_time_min</code>, <code>route_type</code>). The same data
+        is shown two ways below: a force-directed node-link diagram and an
+        adjacency matrix.
     </p>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+    <h3>Part A &mdash; Node-link diagram</h3>
+
+    <p class="hint">
+        Drag any station to pull the layout apart. Hover a station to isolate
+        it, its routes, and its direct neighbours; hover a route for its
+        details.
+    </p>
+
+    <div id="network"></div>
+    <div id="net-tooltip" class="tooltip"></div>
+
+    <div class="legend-grid">
+        <div><span class="legend-title">District &mdash; node colour</span>
+            <div id="legend-district" class="legend-row"></div></div>
+        <div><span class="legend-title">Route type &mdash; link colour</span>
+            <div id="legend-route" class="legend-row"></div></div>
+        <div><span class="legend-title">Station type &mdash; node outline</span>
+            <div id="legend-type" class="legend-row"></div></div>
+        <div><span class="legend-title">Daily passengers &mdash; node size</span>
+            <div id="legend-size" class="legend-row"></div></div>
+        <div><span class="legend-title">Travel time &mdash; link width</span>
+            <div id="legend-width" class="legend-row"></div></div>
+    </div>
+
+    <section class="design-note">
+        <h4>Design of the node-link diagram</h4>
+        <p>
+            <strong>District</strong> is nominal, so it takes the node
+            <strong>fill colour</strong> &mdash; the natural channel for
+            unordered categories, and it lets district groupings emerge from
+            the force layout. <strong>Daily passengers</strong> is a ratio
+            quantity, mapped to node <strong>radius</strong> on a square-root
+            scale so that circle <em>area</em> is proportional to volume;
+            this matches the transit intuition that a busier station is a
+            &ldquo;bigger&rdquo; place. <strong>Station type</strong> uses the
+            node <strong>outline</strong> rather than a third colour or a
+            shape, keeping every node a circle so the size comparison stays
+            honest: Terminal gets a heavy stroke, Transfer a concentric ring
+            (echoing the interchange symbol on real transit maps), Local a
+            thin stroke. <strong>Travel time</strong> drives
+            <strong>link width</strong> (thicker&nbsp;=&nbsp;slower), and
+            <strong>route type</strong> drives <strong>link colour</strong>.
+            Dragging separates the dense main chain; hovering fades everything
+            except the focused station, its links and its neighbours, making
+            local structure legible inside the hairball; tooltips report exact
+            values.
+        </p>
+    </section>
+
+    <h3>Part B &mdash; Adjacency matrix</h3>
+
+    <p class="hint">
+        Each filled cell is a direct route. Cell colour = route type, cell
+        opacity = travel time (fainter is quicker). Re-order the rows and
+        columns:
+    </p>
+
+    <div class="matrix-controls">
+        <label><input type="radio" name="matrix-order" value="district" checked> District</label>
+        <label><input type="radio" name="matrix-order" value="degree"> Degree (hubs first)</label>
+        <label><input type="radio" name="matrix-order" value="id"> Station ID</label>
+    </div>
+
+    <div id="matrix"></div>
+    <div id="matrix-tooltip" class="tooltip"></div>
+
+    <section class="design-note">
+        <h4>Design of the adjacency matrix</h4>
+        <p>
+            Rows and columns are the 50 stations; a filled cell marks a direct
+            route. The matrix is drawn <strong>symmetrically</strong> (both
+            triangles) so a block reads the same along either axis. Both link
+            variables carry over from Part A: <strong>cell colour</strong>
+            repeats the route-type palette and <strong>cell opacity</strong>
+            encodes travel time. The default <strong>row/column order groups
+            stations by district</strong> (then by station number), with black
+            dividers and a district colour strip on each axis, so
+            district-to-district connectivity becomes visible as blocks. Two
+            alternate orderings are offered: <strong>by degree</strong>, which
+            floats the hub stations to the top-left, and <strong>by station
+            ID</strong>, which matches the raw file and makes the main chain
+            appear as the super-diagonal.
+        </p>
+    </section>
+
+    <h3>Part C &mdash; The six network questions</h3>
+
+    <ol class="questions">
+        <li>
+            <strong>Which stations appear central in the network?</strong>
+            Fourteen stations have three links each (s4, s7, s10, s13, s16,
+            s18, s21, s23, s25, s29, s31, s33, s34, s38); every one is a
+            junction where a cross-district route meets the main chain. s31,
+            s23 and s7 lie on the most shortest paths and read as the
+            strongest hubs.
+        </li>
+        <li>
+            <strong>Which districts are strongly connected to one another?</strong>
+            Because stations were assigned to districts in strict rotation,
+            48 of 50 routes are cross-district and the off-diagonal blocks
+            are all lightly and roughly equally populated: no district pair
+            stands out. The diagonal blocks are nearly empty &mdash; almost
+            no within-district routes.
+        </li>
+        <li>
+            <strong>Where are transfer or terminal stations located in the topology?</strong>
+            Transfer (ring) and Terminal (heavy stroke) stations are spread
+            evenly along the chain, not clustered &mdash; the two types
+            alternate with Local down the line. Terminals are <em>not</em> only
+            at the ends; the true topological ends are the degree-1 stations
+            (s44, s45, s47, s50) and the five completely isolated stations
+            (s42, s43, s46, s48, s49).
+        </li>
+        <li>
+            <strong>Which stations have high passenger volume?</strong>
+            Passenger volume climbs monotonically with station number (about
+            1,400 at s1 to 9,850 at s50), so the largest circles are the
+            high-numbered stations &mdash; several of which (s42&ndash;s50)
+            are exactly the poorly connected or isolated ones: high demand,
+            thin connectivity.
+        </li>
+        <li>
+            <strong>Where are the longest direct travel-time connections?</strong>
+            The three longest routes are all long cross-chain links and all
+            Express: s7&ndash;s31 (16&nbsp;min), s18&ndash;s34 (15&nbsp;min),
+            s29&ndash;s50 (14&nbsp;min). The 2&ndash;4&nbsp;min links are all
+            single steps along the main chain.
+        </li>
+        <li>
+            <strong>Are particular route types concentrated in particular parts of the network?</strong>
+            Route type also cycles (Metro / Express / Shuttle repeating), so
+            all three appear in every district and along the whole chain,
+            with no spatial concentration. The only real pattern: the
+            longest cross-links are disproportionately Express.
+        </li>
+    </ol>
+
+    <a href="../index.html">&larr; Back to home</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="lab5.js"></script>
 
 </body>
-
 </html>

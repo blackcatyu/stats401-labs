@@ -86,3 +86,112 @@ svg rect:hover {
     opacity: 0;
     font-size: 14px;
 }
+
+/* Lab 5 */
+.hint {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+#network,
+#matrix {
+    margin-top: 16px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.net-node {
+    cursor: grab;
+}
+
+.net-node:active {
+    cursor: grabbing;
+}
+
+#network line {
+    cursor: default;
+}
+
+.matrix-label text {
+    font-size: 8px;
+    fill: #555;
+}
+
+.matrix-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 12px 0;
+    font-size: 0.9rem;
+}
+
+.matrix-controls label {
+    cursor: pointer;
+}
+
+.legend-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px 24px;
+    margin: 20px 0 10px;
+    padding: 16px;
+    background: #f9f9f7;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+}
+
+.legend-title {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #52514e;
+    margin-bottom: 6px;
+}
+
+.legend-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+}
+
+.legend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #333;
+}
+
+.legend-chip .swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.legend-chip .line-swatch {
+    width: 22px;
+    height: 4px;
+    border-radius: 2px;
+}
+
+.design-note {
+    background: #f9f9f7;
+    border-left: 3px solid #b7b2a7;
+    padding: 4px 18px;
+    margin: 24px 0;
+}
+
+.design-note h4 {
+    margin-bottom: 6px;
+}
+
+ol.questions {
+    line-height: 1.6;
+}
+
+ol.questions li {
+    margin-bottom: 14px;
+}
