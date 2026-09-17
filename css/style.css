@@ -195,3 +195,74 @@ ol.questions {
 ol.questions li {
     margin-bottom: 14px;
 }
+
+/* Lab 6 */
+#treemap-squarify,
+#treemap-binary {
+    margin-top: 10px;
+    margin-bottom: 24px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.crumb {
+    min-height: 20px;
+    margin-top: 14px;
+    font-size: 0.9rem;
+}
+
+.crumb-back {
+    color: #1f4e79;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+.crumb-back:hover {
+    text-decoration: underline;
+}
+
+.continent-rect {
+    stroke: #fff;
+    stroke-width: 2px;
+    rx: 4px;
+}
+
+.continent-label {
+    font-size: 14px;
+    font-weight: bold;
+    fill: #222;
+    pointer-events: none;
+}
+
+.continent-sublabel {
+    font-size: 11px;
+    fill: #444;
+    pointer-events: none;
+}
+
+.leaf rect {
+    stroke: #fff;
+    stroke-width: 1px;
+}
+
+.leaf-label {
+    font-size: 10px;
+    fill: #fff;
+    pointer-events: none;
+}
+
+.group-rect {
+    fill: none;
+    pointer-events: none;
+    stroke: #c7c2b6;
+    stroke-width: 1px;
+    rx: 3px;
+}
+
+.group-label {
+    font-size: 11px;
+    font-weight: bold;
+    fill: #52514e;
+    pointer-events: none;
+}

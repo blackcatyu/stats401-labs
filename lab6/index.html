@@ -1,27 +1,105 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 6</title>
+    <title>Lab 6 - GDP Hierarchy Treemaps</title>
 
+    <link rel="stylesheet"
+          href="../css/style.css">
 </head>
 
 <body>
 
-    <h1>Lab 6</h1>
+<header>
+    <h1>STATS 401</h1>
+    <p>Data Acquisition and Visualization</p>
+</header>
+
+<nav class="lab-nav">
+    <a href="../lab1/index.html">Lab 1</a>
+    <a href="../lab2/index.html">Lab 2</a>
+    <a href="../lab3/index.html">Lab 3</a>
+    <a href="../lab4/index.html">Lab 4</a>
+    <a href="../lab5/index.html">Lab 5</a>
+    <a href="../lab6/index.html">Lab 6</a>
+    <a href="../lab7/index.html">Lab 7</a>
+    <a href="../lab8/index.html">Lab 8</a>
+    <a href="../lab9/index.html">Lab 9</a>
+    <a href="../lab10/index.html">Lab 10</a>
+</nav>
+
+<main>
+    <h2>Lab 6: GDP Hierarchy Treemaps</h2>
 
     <p>
-        Lab 6 will be added here.
+        A synthetic GDP dataset for 26 countries, nested
+        World &rarr; continent &rarr; area &rarr; country. Each country
+        carries a GDP amount (<code>gdp_billion_usd</code>) and a GDP
+        trend (<code>gdp_status</code>: Increase, Unchanged, Decrease).
+        The flat CSV is converted to nested JSON in
+        <code>convert_hierarchy.py</code>, then rendered below as two
+        treemaps that use different tiling algorithms.
     </p>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+    <p class="hint">
+        Each treemap opens on the six continents, sized by total GDP.
+        Click a continent to zoom into its areas and countries; use the
+        &ldquo;All continents&rdquo; link above the chart to zoom back out.
+        Once zoomed in, hover a country rectangle for its exact GDP and
+        status &mdash; thin borders mark the areas within that continent.
+    </p>
+
+    <div class="legend-grid">
+        <div>
+            <span class="legend-title">GDP status &mdash; country rectangle colour (after zooming in)</span>
+            <div id="status-legend" class="legend-row"></div>
+        </div>
+    </div>
+
+    <h3>Treemap A &mdash; Squarify tiling</h3>
+    <div id="crumb-squarify" class="crumb"></div>
+    <div id="treemap-squarify"></div>
+
+    <h3>Treemap B &mdash; Binary tiling</h3>
+    <div id="crumb-binary" class="crumb"></div>
+    <div id="treemap-binary"></div>
+
+    <div id="tooltip" class="tooltip"></div>
+
+    <section class="design-note">
+        <h4>Design description</h4>
+        <p>
+            GDP is a ratio quantity, so it drives rectangle <strong>area</strong>
+            &mdash; the channel treemaps are built for, letting relative
+            economic size be read at a glance without a legend. GDP status
+            is a three-level nominal category, so it takes rectangle
+            <strong>colour</strong> (green/grey/red for Increase/Unchanged/
+            Decrease), a channel independent of area so size and trend can be
+            read separately. Showing all four levels (world/continent/area/
+            country) on screen at once badly squeezed small continents such
+            as Africa and Oceania, whose countries became slivers too thin
+            to label. Instead each treemap opens on just the six continents,
+            coloured by continent identity and sized by total GDP; clicking
+            one zooms that continent to fill the whole canvas, revealing its
+            area bands and country rectangles with room to read. Squarify
+            (Treemap A) keeps rectangles close to square, which makes
+            individual countries easy to compare and click, but it reorders
+            items freely to hit that aspect ratio, so the reading order
+            within a group feels arbitrary. Binary (Treemap B) recursively
+            splits each group in two, producing narrower, more elongated
+            rectangles and a more strictly ordered layout by descending
+            GDP, at some cost to the squareness of individual cells.
+        </p>
+    </section>
+
+    <a href="../index.html">&larr; Back to home</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="lab6.js"></script>
 
 </body>
-
 </html>
