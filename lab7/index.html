@@ -1,27 +1,226 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 7</title>
+    <title>Lab 7 - Temporal Commercial Network</title>
 
+    <link rel="stylesheet"
+          href="../css/style.css">
 </head>
 
 <body>
 
-    <h1>Lab 7</h1>
+<header>
+    <h1>STATS 401</h1>
+    <p>Data Acquisition and Visualization</p>
+</header>
+
+<nav class="lab-nav">
+    <a href="../lab1/index.html">Lab 1</a>
+    <a href="../lab2/index.html">Lab 2</a>
+    <a href="../lab3/index.html">Lab 3</a>
+    <a href="../lab4/index.html">Lab 4</a>
+    <a href="../lab5/index.html">Lab 5</a>
+    <a href="../lab6/index.html">Lab 6</a>
+    <a href="../lab7/index.html">Lab 7</a>
+    <a href="../lab8/index.html">Lab 8</a>
+    <a href="../lab9/index.html">Lab 9</a>
+    <a href="../lab10/index.html">Lab 10</a>
+</nav>
+
+<main>
+    <h2>Lab 7: Temporal Commercial Network</h2>
 
     <p>
-        Lab 7 will be added here.
+        Sixty days of commercial transactions among 12 companies
+        (<code>lab7_assignment_transactions_60days.csv</code>), drawn as a
+        force-directed network that changes over time. Each link is an
+        undirected commercial relationship between two companies; a link is
+        <em>active</em> when the pair traded during the current time window.
     </p>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+    <p class="hint">
+        Press Play to animate day by day, or drag the slider to inspect any
+        day by hand. Hover a company or a link for its exact numbers, and drag
+        companies to rearrange them. Newly appearing links fade in extra thick and
+        shrink to their real width; relationships that stop trading fade out, and companies with no trades in the window are drawn faded. The
+        &ldquo;Link window&rdquo; controls how many recent days count as
+        active (1 day is very sparse; 7 days is the default).
+    </p>
+
+    <div class="lab7-controls">
+        <button id="btn-play" type="button">&#9654; Play</button>
+        <button id="btn-pause" type="button">&#10074;&#10074; Pause</button>
+        <button id="btn-reset" type="button">&#8634; Reset</button>
+
+        <input id="day-slider" type="range" min="1" max="60" step="1" value="1"
+               aria-label="Day">
+
+        <label class="window-picker">
+            Link window
+            <select id="window-select">
+                <option value="1">1 day</option>
+                <option value="3">3 days</option>
+                <option value="7" selected>7 days</option>
+                <option value="14">14 days</option>
+            </select>
+        </label>
+    </div>
+
+    <div id="day-label" class="day-label"></div>
+
+    <div class="summary-row">
+        <div class="summary-box">
+            <span class="summary-value" id="stat-links">0</span>
+            <span class="summary-name">Active links</span>
+        </div>
+        <div class="summary-box">
+            <span class="summary-value" id="stat-companies">0</span>
+            <span class="summary-name">Active companies (of 12)</span>
+        </div>
+        <div class="summary-box">
+            <span class="summary-value" id="stat-value">$0</span>
+            <span class="summary-name">Total transaction value</span>
+        </div>
+        <div class="summary-box">
+            <span class="summary-value" id="stat-cross">0%</span>
+            <span class="summary-name">Links that cross regions</span>
+        </div>
+    </div>
+
+    <div id="network"></div>
+
+    <div class="legend-grid">
+        <div>
+            <span class="legend-title">Node colour &mdash; company sector</span>
+            <div id="sector-legend" class="legend-row"></div>
+        </div>
+        <div>
+            <span class="legend-title">Node shape &mdash; company region</span>
+            <div id="region-legend" class="legend-row"></div>
+        </div>
+        <div>
+            <span class="legend-title">Node size &mdash; transaction value in the current window</span>
+            <div id="size-legend" class="legend-row"></div>
+        </div>
+        <div>
+            <span class="legend-title">Link width &mdash; total amount traded (USD)</span>
+            <div id="width-legend" class="legend-row"></div>
+        </div>
+        <div>
+            <span class="legend-title">Link colour &mdash; dominant transaction type</span>
+            <div id="type-legend" class="legend-row"></div>
+        </div>
+        <div>
+            <span class="legend-title">Link style &mdash; region relationship</span>
+            <div id="style-legend" class="legend-row"></div>
+        </div>
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+
+    <section class="design-note">
+        <h4>Design description</h4>
+        <p>
+            The layout uses <code>d3.forceSimulation()</code> with a link
+            force, many-body repulsion, weak centering and collision
+            avoidance. Every frame recomputes the active links from the
+            transactions inside the time window, aggregates repeated trades
+            between the same pair into one link, and lets the simulation
+            re-settle briefly. Node <strong>size</strong> (a ratio quantity)
+            shows how much a company is trading right now, and the scale is
+            fixed across all 60 days so a node that grows really is trading
+            more. Sector is a nominal category, so it takes
+            <strong>colour</strong>; region is a second nominal category, so it
+            takes <strong>shape</strong>, a channel that stays legible next to
+            colour. Link <strong>width</strong> shows the amount traded,
+            link <strong>colour</strong> shows the dominant transaction type
+            (a nominal category, so hue), and <strong>dashing</strong> marks
+            links that connect companies in different regions. The
+            transaction count is in the link tooltip.
+        </p>
+        <p>
+            To preserve the mental map, the same 12 node objects are kept for
+            the whole animation (inactive companies fade rather than
+            disappearing), the layout is pre-settled on the full 60-day
+            network before playback starts, every node is gently pulled back
+            towards that settled &ldquo;home&rdquo; position, and each update only
+            re-heats the simulation (<code>alpha</code>) instead of restarting it.
+            Playback can be paused at any time and the slider gives
+            frame-by-frame inspection.
+        </p>
+    </section>
+
+    <h3>Temporal-network questions</h3>
+    <p class="hint">
+        Observations below use the default 7-day window; drag the slider to the
+        days mentioned to see them in the network.
+    </p>
+
+    <ol class="questions">
+        <li>
+            <strong>How does overall network connectivity change across the 60 days?</strong><br>
+            Connectivity builds up and then steps up in two stages. On day 1 only 3 links are active
+            (6 of the 12 companies); by day 2 every company has traded, and by day 5 the network is a single
+            connected component. Days 5&ndash;20 hold steady at 15 links; days 21&ndash;26 rise to 17&ndash;19 links,
+            days 27&ndash;40 fall back to 15, and days 42&ndash;45 jump to 24 links before settling at 18 for days 47&ndash;60.
+            The value traded per week grows much more steadily than the link count: the &ldquo;Total transaction
+            value&rdquo; box goes from about $0.5&ndash;0.6M (days 7&ndash;20) to about $0.65&ndash;0.7M (days 27&ndash;40) and
+            $1.0M (days 47&ndash;60), roughly 1.8 times as much by the end, carried over thicker links.
+        </li>
+        <li>
+            <strong>Which companies become more central or commercially active over time?</strong><br>
+            Fusion Electronics is the largest node over days 1&ndash;20 (about $372K in total) and dominates days 21&ndash;40
+            with about $1.05M, more than twice the next company, because it adds links to Harbor Shipping,
+            Lumen Distribution and Juniper Stores. Over days 41&ndash;60 the lead passes to Ion Systems
+            (about $1.10M, up from $131K) and Cedar Retail (about $0.90M, up from $133K), which each gain three new partners;
+            Fusion Electronics falls back to about $0.56M. Apex Textiles also more than doubles in the last third
+            (about $214K &rarr; $476K). Evergreen Foods is the least active company throughout: it has a single partner
+            (Cedar Retail) until day 42, when it also starts trading with Lumen Distribution.
+        </li>
+        <li>
+            <strong>Are there periods when the network consists of relatively separate clusters?</strong><br>
+            Yes, mainly in the first 20 days. On day 1 the network is three separate pairs
+            (Cedar&ndash;Evergreen, Granite&ndash;Harbor, Ion&ndash;Lumen) with six companies idle. On days 3&ndash;4 it forms two
+            clusters of six: Apex, BlueRiver, Cedar, Delta, Evergreen and Fusion versus Granite, Harbor,
+            Ion, Juniper, Keystone and Lumen. The Fusion&ndash;Granite link first appears on day 5 and joins them; with the
+            default 7-day window the network is a single component on every day from then on. Switching the window to 3 days
+            shows that this bridge is thin: the two halves separate again on days 8&ndash;9, 13&ndash;14 and 18&ndash;19, and never
+            after day 21, once Fusion&rsquo;s new links to the other half keep them connected. Later structure is hub-and-spoke
+            rather than clustered: Fusion in days 21&ndash;40, then Ion, Cedar and Fusion in days 41&ndash;60.
+        </li>
+        <li>
+            <strong>Which commercial relationships appear, disappear, or become stronger over time?</strong><br>
+            A stable core of 10 relationships trades from the first days to the last (for example Cedar&ndash;Evergreen,
+            Ion&ndash;Lumen, Apex&ndash;Fusion, Apex&ndash;BlueRiver, Delta&ndash;Fusion). Three links disappear after day 20:
+            BlueRiver&ndash;Delta, Harbor&ndash;Keystone and Cedar&ndash;Fusion. Days 21&ndash;24 bring Fusion&rsquo;s new links to
+            Harbor, Lumen and Juniper plus Delta&ndash;Keystone, and Fusion&ndash;Granite becomes much stronger
+            (about $33K in days 5&ndash;20 to $250K in days 21&ndash;40). Those five links and Granite&ndash;Harbor all
+            end by day 40. Days 41&ndash;42 add eight new links, six of them around Ion Systems and Cedar Retail
+            (e.g. Cedar&ndash;Keystone, Cedar&ndash;Granite, Fusion&ndash;Ion). Ion&ndash;Juniper goes quiet for days 21&ndash;40
+            and returns much stronger (about $127K &rarr; $202K per 20 days), and Delta&ndash;Fusion also strengthens
+            (about $126K &rarr; $154&ndash;160K).
+        </li>
+        <li>
+            <strong>Does the network become more or less cross-regional over time?</strong><br>
+            More cross-regional, especially in the last third. In a 7-day window 60% of active links connect
+            different regions on days 5&ndash;20 and 27&ndash;40 (with a brief rise to 65&ndash;68% on days 21&ndash;26),
+            then 71% on days 42&ndash;45 and 67% on days 47&ndash;60 (see the &ldquo;Links that cross regions&rdquo; box and the
+            dashed links). The rise comes from new relationships: all four links added on days 21&ndash;24 and 7 of the 8
+            added on days 41&ndash;42 connect different regions (the exception is Evergreen&ndash;Lumen, both in North America).
+            The stable core is split evenly (5 of its 10 links cross regions), so the network becomes more globally
+            integrated mainly through its newer, stronger relationships.
+        </li>
+    </ol>
+
+    <a href="../index.html">&larr; Back to home</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="lab7.js"></script>
 
 </body>
-
 </html>
