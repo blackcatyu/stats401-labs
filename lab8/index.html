@@ -133,7 +133,10 @@
         Rows are the bulletin&rsquo;s formal structure in document order; columns are the semantic
         topics. Cell shade is the <em>share of the row&rsquo;s passages</em> in that topic, with the passage
         count printed inside. The bars on the right show each row&rsquo;s size, and the diversity value
-        is the entropy of its topic mix (0 = one topic only). Click a cell to highlight its
+        is the entropy of its topic mix (0 = one topic only). In the Sections view, rows are the
+        bulletin&rsquo;s level-2 sections, except that the majors are listed one by one; sections with
+        fewer than 5 passages are merged into an &ldquo;Other (Pn)&rdquo; row at the end of their Part, and
+        text before a Part&rsquo;s first section is its &ldquo;introduction&rdquo;. Click a cell to highlight its
         passages on the map, a row label to filter by that section, or a column header to filter by
         that topic. Selecting a point on the map outlines its cell (solid) and the cells of its
         nearest neighbours (dashed). While a search is active, cells count only matching passages.
@@ -246,32 +249,36 @@
 
     <!-- 6. Design description -------------------------------------------->
     <section class="design-note">
-        <h4>Design description</h4>
+        <h4>Design description and findings</h4>
         <p>
             Each of the 575 cleaned passages was embedded with the sentence-transformer
-            <code>all-MiniLM-L6-v2</code> (384-d, L2-normalised; <code>lab8/semantic_analysis.py</code>).
-            Passages over 180 words were split at sentence boundaries so the model&rsquo;s 256-token limit
-            never truncates them. UMAP (cosine metric, <code>n_neighbors=15</code>, <code>min_dist=0.15</code>,
+            <code>all-MiniLM-L6-v2</code> (384-d, L2-normalised; <code>lab8/semantic_analysis.py</code>);
+            passages over 180 words were split at sentence boundaries so the model&rsquo;s 256-token limit never
+            truncates them. UMAP (cosine metric, <code>n_neighbors=15</code>, <code>min_dist=0.15</code>,
             <code>random_state=401</code>) projects the vectors to 2-D for display only. Topics come from KMeans
-            on the original 384-d vectors, not the 2-D map. Silhouette scores were low for every k (0.09&ndash;0.14),
-            so k = 10 was chosen for interpretability: k = 6 scored slightly higher but merged academic integrity
-            into grading and leave into fees. Each cluster was labelled by hand after reading the passages closest
-            to its centroid and its class-based TF-IDF terms.
+            on the original 384-d vectors. Silhouette scores were low for every k (0.09&ndash;0.14), so k = 10 was
+            kept for interpretability: k = 6 scored slightly higher but merged academic integrity into grading and
+            leave into fees. Each cluster was labelled by hand from its most central passages and its class-based
+            TF-IDF terms.
         </p>
         <p>
-            On the map, <strong>position</strong> encodes semantic similarity, <strong>hue</strong> the nominal
-            topic, and <strong>area</strong> passage length. Ten hues are more than colour alone can separate
-            safely, so topic names are also printed at each cluster&rsquo;s centre, and the legend can isolate one
-            topic. The formal section is deliberately <em>not</em> encoded on the map; it is left to the matrix,
-            which uses a single-hue sequential shade for the share of the row&rsquo;s passages, so large chapters do
-            not wash out small ones, and marginal bars for size.
+            On the map, <strong>position</strong> encodes semantic similarity, <strong>hue</strong> the topic and
+            <strong>area</strong> passage length. Ten hues cannot be told apart by colour alone, so topic names are
+            printed at each cluster&rsquo;s centre and the legend can isolate one topic. The formal section is left to
+            the matrix, whose single-hue shade shows the share of each row&rsquo;s passages, so small chapters are not
+            washed out by large ones; marginal bars give row size.
         </p>
         <p>
-            Both views share a single selection state. Search, section and topic filters, matrix cells, row labels
-            and column headers all narrow the same set of passages. The map dims everything else and the matrix
-            recounts. Clicking a passage outlines its matrix cell and its neighbours&rsquo; cells, so it is visible at
-            once when similar content lives in a different part of the bulletin. The detail panel shows the
-            passage&rsquo;s full hierarchy, page, topic and text, and its neighbours can be followed one click at a time.
+            Both views share one selection state. Search, filters, matrix cells, row labels and column headers all
+            narrow the same set of passages: the map dims the rest and the matrix recounts. Clicking a passage
+            outlines its cell and its neighbours&rsquo; cells, which exposes similar content that lives in a different
+            part of the bulletin.
+        </p>
+        <p>
+            <strong>Findings:</strong> formal and semantic structure agree for the majors, whose course tables form
+            separate islands, but not for the rules of study. Credit rules are spread over at least four Parts, the
+            same 40-credit transfer limit is stated in two chapters, and <em>The Curriculum</em> is the most
+            semantically mixed chapter.
         </p>
     </section>
 
