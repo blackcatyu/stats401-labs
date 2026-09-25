@@ -1,0 +1,17 @@
+{
+  "raw": 733,
+  "after_short": 723,
+  "after_exact_dup": 599,
+  "after_near_dup": 575,
+  "source_title": "Bulletin of Duke Kunshan University Undergraduate Instruction 2021-2022",
+  "source_url": "https://dku-web-admissions.s3.cn-north-1.amazonaws.com.cn/dkumain/files/V2021-22_DKU_UG_Bulletin.pdf",
+  "accessed": "2026-09-25",
+  "pdf_pages": 400,
+  "pages_used": "10-216",
+  "mean_words": 79.6,
+  "median_words": 70.0,
+  "n_chapters": 10,
+  "n_sections": 79,
+  "n_subsections": 73,
+  "n_table_passages": 151
+}

@@ -1,0 +1,184 @@
+level,row,row_order,chapter_short,cluster_name,count,row_total,row_entropy
+chapter,P1 General Information,0,P1 General Information,Campus Life & DKU Identity,14,18,0.9864
+chapter,P1 General Information,0,P1 General Information,"Credit Transfer, Placement & Study Away",2,18,0.9864
+chapter,P1 General Information,0,P1 General Information,Major Overviews & Tracks,2,18,0.9864
+chapter,P2 Liberal Arts Education,1,P2 Liberal Arts Education,Advising & Academic Support,2,6,1.4591
+chapter,P2 Liberal Arts Education,1,P2 Liberal Arts Education,Campus Life & DKU Identity,3,6,1.4591
+chapter,P2 Liberal Arts Education,1,P2 Liberal Arts Education,"Credit Transfer, Placement & Study Away",1,6,1.4591
+chapter,P3 The Curriculum,2,P3 The Curriculum,Advising & Academic Support,12,52,2.4152
+chapter,P3 The Curriculum,2,P3 The Curriculum,Campus Life & DKU Identity,3,52,2.4152
+chapter,P3 The Curriculum,2,P3 The Curriculum,"Credit Transfer, Placement & Study Away",14,52,2.4152
+chapter,P3 The Curriculum,2,P3 The Curriculum,"Grading, CR/NC & Academic Standing",13,52,2.4152
+chapter,P3 The Curriculum,2,P3 The Curriculum,"Leave, Withdrawal & Fees",1,52,2.4152
+chapter,P3 The Curriculum,2,P3 The Curriculum,Major Overviews & Tracks,7,52,2.4152
+chapter,P3 The Curriculum,2,P3 The Curriculum,STEM Course Requirements,2,52,2.4152
+chapter,P4 Admission & Aid,3,P4 Admission & Aid,Campus Life & DKU Identity,3,19,1.8129
+chapter,P4 Admission & Aid,3,P4 Admission & Aid,"Credit Transfer, Placement & Study Away",6,19,1.8129
+chapter,P4 Admission & Aid,3,P4 Admission & Aid,"Grading, CR/NC & Academic Standing",2,19,1.8129
+chapter,P4 Admission & Aid,3,P4 Admission & Aid,"Leave, Withdrawal & Fees",8,19,1.8129
+chapter,P5 Financial Information,4,P5 Financial Information,"Credit Transfer, Placement & Study Away",1,26,0.4682
+chapter,P5 Financial Information,4,P5 Financial Information,"Grading, CR/NC & Academic Standing",1,26,0.4682
+chapter,P5 Financial Information,4,P5 Financial Information,"Leave, Withdrawal & Fees",24,26,0.4682
+chapter,P6 Academic Procedures,5,P6 Academic Procedures,Academic Integrity & Grievances,26,164,2.0217
+chapter,P6 Academic Procedures,5,P6 Academic Procedures,Advising & Academic Support,2,164,2.0217
+chapter,P6 Academic Procedures,5,P6 Academic Procedures,Campus Life & DKU Identity,1,164,2.0217
+chapter,P6 Academic Procedures,5,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",41,164,2.0217
+chapter,P6 Academic Procedures,5,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",64,164,2.0217
+chapter,P6 Academic Procedures,5,P6 Academic Procedures,"Leave, Withdrawal & Fees",30,164,2.0217
+chapter,P7 Advising & Support,6,P7 Advising & Support,Advising & Academic Support,10,10,0.0
+chapter,"P8 Careers, Study Away, Research",7,"P8 Careers, Study Away, Research",Advising & Academic Support,2,27,1.9023
+chapter,"P8 Careers, Study Away, Research",7,"P8 Careers, Study Away, Research",Campus Life & DKU Identity,8,27,1.9023
+chapter,"P8 Careers, Study Away, Research",7,"P8 Careers, Study Away, Research","Credit Transfer, Placement & Study Away",12,27,1.9023
+chapter,"P8 Careers, Study Away, Research",7,"P8 Careers, Study Away, Research","Grading, CR/NC & Academic Standing",1,27,1.9023
+chapter,"P8 Careers, Study Away, Research",7,"P8 Careers, Study Away, Research","Leave, Withdrawal & Fees",4,27,1.9023
+chapter,P9 Student Affairs,8,P9 Student Affairs,Academic Integrity & Grievances,2,32,1.6624
+chapter,P9 Student Affairs,8,P9 Student Affairs,Advising & Academic Support,3,32,1.6624
+chapter,P9 Student Affairs,8,P9 Student Affairs,Campus Life & DKU Identity,20,32,1.6624
+chapter,P9 Student Affairs,8,P9 Student Affairs,"Leave, Withdrawal & Fees",5,32,1.6624
+chapter,P9 Student Affairs,8,P9 Student Affairs,Major Overviews & Tracks,2,32,1.6624
+chapter,P10 Majors,9,P10 Majors,Advising & Academic Support,2,221,2.2076
+chapter,P10 Majors,9,P10 Majors,Campus Life & DKU Identity,1,221,2.2076
+chapter,P10 Majors,9,P10 Majors,"Grading, CR/NC & Academic Standing",7,221,2.2076
+chapter,P10 Majors,9,P10 Majors,Humanities & Social Sci. Electives,47,221,2.2076
+chapter,P10 Majors,9,P10 Majors,Humanities & Social Sci. Major Courses,43,221,2.2076
+chapter,P10 Majors,9,P10 Majors,Major Overviews & Tracks,54,221,2.2076
+chapter,P10 Majors,9,P10 Majors,STEM Course Requirements,67,221,2.2076
+section,Who We Are,0,P1 General Information,Campus Life & DKU Identity,4,5,0.7219
+section,Who We Are,0,P1 General Information,"Credit Transfer, Placement & Study Away",1,5,0.7219
+section,Partners,1,P1 General Information,Campus Life & DKU Identity,5,6,0.65
+section,Partners,1,P1 General Information,"Credit Transfer, Placement & Study Away",1,6,0.65
+section,Other (P1),2,P1 General Information,Campus Life & DKU Identity,5,7,0.8631
+section,Other (P1),2,P1 General Information,Major Overviews & Tracks,2,7,0.8631
+section,Other (P2),3,P2 Liberal Arts Education,Advising & Academic Support,2,6,1.4591
+section,Other (P2),3,P2 Liberal Arts Education,Campus Life & DKU Identity,3,6,1.4591
+section,Other (P2),3,P2 Liberal Arts Education,"Credit Transfer, Placement & Study Away",1,6,1.4591
+section,Overview,4,P3 The Curriculum,Advising & Academic Support,2,5,1.5219
+section,Overview,4,P3 The Curriculum,Campus Life & DKU Identity,2,5,1.5219
+section,Overview,4,P3 The Curriculum,Major Overviews & Tracks,1,5,1.5219
+section,Key Components,5,P3 The Curriculum,Advising & Academic Support,2,7,1.8424
+section,Key Components,5,P3 The Curriculum,Campus Life & DKU Identity,1,7,1.8424
+section,Key Components,5,P3 The Curriculum,"Credit Transfer, Placement & Study Away",3,7,1.8424
+section,Key Components,5,P3 The Curriculum,"Leave, Withdrawal & Fees",1,7,1.8424
+section,Degree Requirements,6,P3 The Curriculum,Advising & Academic Support,8,40,2.1302
+section,Degree Requirements,6,P3 The Curriculum,"Credit Transfer, Placement & Study Away",11,40,2.1302
+section,Degree Requirements,6,P3 The Curriculum,"Grading, CR/NC & Academic Standing",13,40,2.1302
+section,Degree Requirements,6,P3 The Curriculum,Major Overviews & Tracks,6,40,2.1302
+section,Degree Requirements,6,P3 The Curriculum,STEM Course Requirements,2,40,2.1302
+section,Application Timelines,7,P4 Admission & Aid,"Credit Transfer, Placement & Study Away",1,6,0.65
+section,Application Timelines,7,P4 Admission & Aid,"Leave, Withdrawal & Fees",5,6,0.65
+section,Application Requirements,8,P4 Admission & Aid,"Credit Transfer, Placement & Study Away",2,5,1.5219
+section,Application Requirements,8,P4 Admission & Aid,"Grading, CR/NC & Academic Standing",2,5,1.5219
+section,Application Requirements,8,P4 Admission & Aid,"Leave, Withdrawal & Fees",1,5,1.5219
+section,Other (P4),9,P4 Admission & Aid,Campus Life & DKU Identity,3,8,1.5613
+section,Other (P4),9,P4 Admission & Aid,"Credit Transfer, Placement & Study Away",3,8,1.5613
+section,Other (P4),9,P4 Admission & Aid,"Leave, Withdrawal & Fees",2,8,1.5613
+section,Estimated Expenses,10,P5 Financial Information,"Credit Transfer, Placement & Study Away",1,12,0.4138
+section,Estimated Expenses,10,P5 Financial Information,"Leave, Withdrawal & Fees",11,12,0.4138
+section,Refund,11,P5 Financial Information,"Grading, CR/NC & Academic Standing",1,12,0.4138
+section,Refund,11,P5 Financial Information,"Leave, Withdrawal & Fees",11,12,0.4138
+section,Other (P5),12,P5 Financial Information,"Leave, Withdrawal & Fees",2,2,0.0
+section,Academic Integrity,13,P6 Academic Procedures,Academic Integrity & Grievances,5,5,0.0
+section,Entrance Credit & Placement,14,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",10,15,0.9183
+section,Entrance Credit & Placement,14,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",5,15,0.9183
+section,Transfer of Work Elsewhere,15,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",7,7,0.0
+section,Registration,16,P6 Academic Procedures,Academic Integrity & Grievances,2,7,1.3788
+section,Registration,16,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",1,7,1.3788
+section,Registration,16,P6 Academic Procedures,"Leave, Withdrawal & Fees",4,7,1.3788
+section,Undergraduate Course Load,17,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",1,16,1.2476
+section,Undergraduate Course Load,17,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",6,16,1.2476
+section,Undergraduate Course Load,17,P6 Academic Procedures,"Leave, Withdrawal & Fees",9,16,1.2476
+section,Course Repeat,18,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",2,6,0.9183
+section,Course Repeat,18,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",4,6,0.9183
+section,Grading & Grade Requirements,19,P6 Academic Procedures,Academic Integrity & Grievances,1,18,1.2332
+section,Grading & Grade Requirements,19,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",3,18,1.2332
+section,Grading & Grade Requirements,19,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",13,18,1.2332
+section,Grading & Grade Requirements,19,P6 Academic Procedures,"Leave, Withdrawal & Fees",1,18,1.2332
+section,Progress toward Degree,20,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",1,6,0.65
+section,Progress toward Degree,20,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",5,6,0.65
+section,Academic Standing (Class 2022-24),21,P6 Academic Procedures,Academic Integrity & Grievances,3,11,1.2407
+section,Academic Standing (Class 2022-24),21,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",7,11,1.2407
+section,Academic Standing (Class 2022-24),21,P6 Academic Procedures,"Leave, Withdrawal & Fees",1,11,1.2407
+section,Academic Standing (Class 2025+),22,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",6,6,0.0
+section,Changes in Status,23,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",2,15,1.2419
+section,Changes in Status,23,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",3,15,1.2419
+section,Changes in Status,23,P6 Academic Procedures,"Leave, Withdrawal & Fees",10,15,1.2419
+section,Recognition & Honors,24,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",1,5,0.7219
+section,Recognition & Honors,24,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",4,5,0.7219
+section,Resolving Academic Concerns,25,P6 Academic Procedures,Academic Integrity & Grievances,4,5,0.7219
+section,Resolving Academic Concerns,25,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",1,5,0.7219
+section,Grade Review Procedure,26,P6 Academic Procedures,Academic Integrity & Grievances,4,8,1.4056
+section,Grade Review Procedure,26,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",3,8,1.4056
+section,Grade Review Procedure,26,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",1,8,1.4056
+section,Other (P6),27,P6 Academic Procedures,Academic Integrity & Grievances,7,34,2.2931
+section,Other (P6),27,P6 Academic Procedures,Advising & Academic Support,2,34,2.2931
+section,Other (P6),27,P6 Academic Procedures,Campus Life & DKU Identity,1,34,2.2931
+section,Other (P6),27,P6 Academic Procedures,"Credit Transfer, Placement & Study Away",9,34,2.2931
+section,Other (P6),27,P6 Academic Procedures,"Grading, CR/NC & Academic Standing",10,34,2.2931
+section,Other (P6),27,P6 Academic Procedures,"Leave, Withdrawal & Fees",5,34,2.2931
+section,Other (P7),28,P7 Advising & Support,Advising & Academic Support,10,10,0.0
+section,Career Services,29,"P8 Careers, Study Away, Research",Advising & Academic Support,2,6,0.9183
+section,Career Services,29,"P8 Careers, Study Away, Research",Campus Life & DKU Identity,4,6,0.9183
+section,Global Education & Study Away,30,"P8 Careers, Study Away, Research",Campus Life & DKU Identity,2,19,1.4574
+section,Global Education & Study Away,30,"P8 Careers, Study Away, Research","Credit Transfer, Placement & Study Away",12,19,1.4574
+section,Global Education & Study Away,30,"P8 Careers, Study Away, Research","Grading, CR/NC & Academic Standing",1,19,1.4574
+section,Global Education & Study Away,30,"P8 Careers, Study Away, Research","Leave, Withdrawal & Fees",4,19,1.4574
+section,Other (P8),31,"P8 Careers, Study Away, Research",Campus Life & DKU Identity,2,2,0.0
+section,Athletics & Sports,32,P9 Student Affairs,Campus Life & DKU Identity,5,5,0.0
+section,Other (P9),33,P9 Student Affairs,Academic Integrity & Grievances,2,27,1.8302
+section,Other (P9),33,P9 Student Affairs,Advising & Academic Support,3,27,1.8302
+section,Other (P9),33,P9 Student Affairs,Campus Life & DKU Identity,15,27,1.8302
+section,Other (P9),33,P9 Student Affairs,"Leave, Withdrawal & Fees",5,27,1.8302
+section,Other (P9),33,P9 Student Affairs,Major Overviews & Tracks,2,27,1.8302
+section,Requirements for All Majors,34,P10 Majors,Advising & Academic Support,2,11,1.6858
+section,Requirements for All Majors,34,P10 Majors,"Grading, CR/NC & Academic Standing",6,11,1.6858
+section,Requirements for All Majors,34,P10 Majors,Humanities & Social Sci. Major Courses,2,11,1.6858
+section,Requirements for All Majors,34,P10 Majors,STEM Course Requirements,1,11,1.6858
+section,Applied Math & Comp. Sciences,35,P10 Majors,Major Overviews & Tracks,4,17,0.7871
+section,Applied Math & Comp. Sciences,35,P10 Majors,STEM Course Requirements,13,17,0.7871
+section,Behavioral Science,36,P10 Majors,Humanities & Social Sci. Electives,1,12,1.2807
+section,Behavioral Science,36,P10 Majors,Major Overviews & Tracks,4,12,1.2807
+section,Behavioral Science,36,P10 Majors,STEM Course Requirements,7,12,1.2807
+section,Computation and Design,37,P10 Majors,"Grading, CR/NC & Academic Standing",1,19,2.1493
+section,Computation and Design,37,P10 Majors,Humanities & Social Sci. Electives,4,19,2.1493
+section,Computation and Design,37,P10 Majors,Humanities & Social Sci. Major Courses,3,19,2.1493
+section,Computation and Design,37,P10 Majors,Major Overviews & Tracks,5,19,2.1493
+section,Computation and Design,37,P10 Majors,STEM Course Requirements,6,19,2.1493
+section,Cultures and Movements,38,P10 Majors,Humanities & Social Sci. Electives,4,15,1.3383
+section,Cultures and Movements,38,P10 Majors,Humanities & Social Sci. Major Courses,9,15,1.3383
+section,Cultures and Movements,38,P10 Majors,Major Overviews & Tracks,2,15,1.3383
+section,Data Science,39,P10 Majors,Major Overviews & Tracks,2,6,0.9183
+section,Data Science,39,P10 Majors,STEM Course Requirements,4,6,0.9183
+section,Environmental Science,40,P10 Majors,Humanities & Social Sci. Electives,2,18,1.3516
+section,Environmental Science,40,P10 Majors,Major Overviews & Tracks,6,18,1.3516
+section,Environmental Science,40,P10 Majors,STEM Course Requirements,10,18,1.3516
+section,Ethics and Leadership,41,P10 Majors,Humanities & Social Sci. Electives,5,13,1.5766
+section,Ethics and Leadership,41,P10 Majors,Humanities & Social Sci. Major Courses,4,13,1.5766
+section,Ethics and Leadership,41,P10 Majors,Major Overviews & Tracks,4,13,1.5766
+section,Global China Studies,42,P10 Majors,Humanities & Social Sci. Electives,6,16,1.8829
+section,Global China Studies,42,P10 Majors,Humanities & Social Sci. Major Courses,5,16,1.8829
+section,Global China Studies,42,P10 Majors,Major Overviews & Tracks,3,16,1.8829
+section,Global China Studies,42,P10 Majors,STEM Course Requirements,2,16,1.8829
+section,Global Cultural Studies,43,P10 Majors,Humanities & Social Sci. Electives,4,12,1.4591
+section,Global Cultural Studies,43,P10 Majors,Humanities & Social Sci. Major Courses,6,12,1.4591
+section,Global Cultural Studies,43,P10 Majors,Major Overviews & Tracks,2,12,1.4591
+section,Global Health,44,P10 Majors,Humanities & Social Sci. Electives,1,10,1.361
+section,Global Health,44,P10 Majors,Major Overviews & Tracks,4,10,1.361
+section,Global Health,44,P10 Majors,STEM Course Requirements,5,10,1.361
+section,Institutions and Governance,45,P10 Majors,Humanities & Social Sci. Electives,9,14,1.4838
+section,Institutions and Governance,45,P10 Majors,Humanities & Social Sci. Major Courses,1,14,1.4838
+section,Institutions and Governance,45,P10 Majors,Major Overviews & Tracks,2,14,1.4838
+section,Institutions and Governance,45,P10 Majors,STEM Course Requirements,2,14,1.4838
+section,Materials Science,46,P10 Majors,Major Overviews & Tracks,2,7,0.8631
+section,Materials Science,46,P10 Majors,STEM Course Requirements,5,7,0.8631
+section,Media and Arts,47,P10 Majors,Campus Life & DKU Identity,1,10,1.1568
+section,Media and Arts,47,P10 Majors,Humanities & Social Sci. Major Courses,7,10,1.1568
+section,Media and Arts,47,P10 Majors,Major Overviews & Tracks,2,10,1.1568
+section,Molecular Bioscience,48,P10 Majors,Major Overviews & Tracks,8,19,0.9819
+section,Molecular Bioscience,48,P10 Majors,STEM Course Requirements,11,19,0.9819
+section,Political Economy,49,P10 Majors,Humanities & Social Sci. Electives,6,10,1.571
+section,Political Economy,49,P10 Majors,Humanities & Social Sci. Major Courses,1,10,1.571
+section,Political Economy,49,P10 Majors,Major Overviews & Tracks,2,10,1.571
+section,Political Economy,49,P10 Majors,STEM Course Requirements,1,10,1.571
+section,US Studies,50,P10 Majors,Humanities & Social Sci. Electives,5,12,1.4834
+section,US Studies,50,P10 Majors,Humanities & Social Sci. Major Courses,5,12,1.4834
+section,US Studies,50,P10 Majors,Major Overviews & Tracks,2,12,1.4834

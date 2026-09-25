@@ -1,27 +1,285 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 8</title>
+    <title>Lab 8 - Exploring the DKU Bulletin</title>
 
+    <link rel="stylesheet"
+          href="../css/style.css">
 </head>
 
-<body>
+<body class="lab8-page">
 
-    <h1>Lab 8</h1>
+<header>
+    <h1>STATS 401</h1>
+    <p>Data Acquisition and Visualization</p>
+</header>
+
+<nav class="lab-nav">
+    <a href="../lab1/index.html">Lab 1</a>
+    <a href="../lab2/index.html">Lab 2</a>
+    <a href="../lab3/index.html">Lab 3</a>
+    <a href="../lab4/index.html">Lab 4</a>
+    <a href="../lab5/index.html">Lab 5</a>
+    <a href="../lab6/index.html">Lab 6</a>
+    <a href="../lab7/index.html">Lab 7</a>
+    <a href="../lab8/index.html">Lab 8</a>
+    <a href="../lab9/index.html">Lab 9</a>
+    <a href="../lab10/index.html">Lab 10</a>
+</nav>
+
+<main>
+    <h2>Lab 8: Formal Structure vs. Semantic Structure of the DKU Bulletin</h2>
+
+    <!-- 1. Corpus description -------------------------------------------->
+    <h3>1. Bulletin / corpus description</h3>
 
     <p>
-        Lab 8 will be added here.
+        <strong>Source:</strong>
+        <em>Bulletin of Duke Kunshan University Undergraduate Instruction 2021&ndash;2022</em>
+        (400-page PDF, version dated August 2021), official DKU source:
+        <a href="https://dku-web-admissions.s3.cn-north-1.amazonaws.com.cn/dkumain/files/V2021-22_DKU_UG_Bulletin.pdf">V2021-22_DKU_UG_Bulletin.pdf</a>,
+        accessed 25 September 2026. A local copy is kept in
+        <code>data/lab8_dku_ug_bulletin_2021-22.pdf</code>.
     </p>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+    <p>
+        The text was extracted with PyMuPDF (<code>lab8/build_corpus.py</code>). The PDF&rsquo;s
+        5-level bookmark outline stores the page <em>and</em> the y-position of every
+        heading, so each paragraph is assigned to its <strong>chapter</strong> (Part),
+        <strong>section</strong>, <strong>subsection</strong> and page exactly. One passage is one
+        paragraph or short policy block: bulleted lists are joined to the sentence that
+        introduces them, paragraphs split by a page break are re-joined, and each
+        course-requirement table becomes one passage (&ldquo;Disciplinary Courses: COMPSCI 201
+        &hellip; (4 credits); &hellip;&rdquo;). Page numbers, headings and the table of contents are
+        dropped. The analysis covers Parts 1&ndash;10 up to the start of <em>Course
+        Descriptions</em> (pp. 10&ndash;216): the remaining 180 pages are one-paragraph
+        course blurbs, the academic calendar and contacts, which would outnumber every
+        policy passage and turn the topics into academic disciplines.
+    </p>
+
+    <div class="summary-row" id="corpus-stats"></div>
+
+    <!-- 2. Corpus overview ------------------------------------------------>
+    <h3>2. Corpus overview</h3>
+    <p class="hint">
+        Two summaries before any semantic modelling: how the passages are distributed over
+        the ten chapters (count and mean length side by side, on separate axes), and the terms
+        with the highest mean TF-IDF weight across all passages (common bulletin words such
+        as &ldquo;student&rdquo;, &ldquo;course&rdquo;, &ldquo;credit&rdquo; and &ldquo;DKU&rdquo; are
+        treated as stop words).
+    </p>
+    <div class="overview-grid">
+        <div>
+            <h4 class="chart-title">Passages and mean passage length by chapter</h4>
+            <div id="chart-chapters"></div>
+        </div>
+        <div>
+            <h4 class="chart-title">Top 20 TF-IDF terms (whole corpus)</h4>
+            <div id="chart-terms"></div>
+        </div>
+    </div>
+
+    <!-- 3. Semantic embedding map ---------------------------------------->
+    <h3>3. Semantic embedding map</h3>
+    <p class="hint">
+        One point is one passage. Nearby points have similar meanings (UMAP projection of
+        384-d sentence embeddings); the axes themselves have no meaning. Colour is the semantic
+        topic and size is passage length. Scroll to zoom and drag to pan. Click a point for
+        its details and its five most similar passages, click a legend entry to show a single
+        topic, and type in the search box to highlight passages containing a word or phrase.
+    </p>
+
+    <div class="lab8-controls">
+        <input type="text" id="search" placeholder="Search bulletin... (e.g. credit)"
+               aria-label="Search passages">
+        <label>Section
+            <select id="section-filter"></select>
+        </label>
+        <label>Topic
+            <select id="topic-filter"></select>
+        </label>
+        <button id="btn-reset" type="button">&#8634; Reset</button>
+        <span id="match-count" class="match-count"></span>
+    </div>
+
+    <div class="map-layout">
+        <div>
+            <div id="semantic-map"></div>
+            <div class="legend-grid map-legend">
+                <div class="legend-wide">
+                    <span class="legend-title">Colour &mdash; semantic topic (click to show one topic)</span>
+                    <div id="topic-legend" class="legend-row"></div>
+                </div>
+                <div>
+                    <span class="legend-title">Size &mdash; passage length (words)</span>
+                    <div id="size-legend" class="legend-row"></div>
+                </div>
+                <div>
+                    <span class="legend-title">Selection</span>
+                    <div id="select-legend" class="legend-row"></div>
+                </div>
+            </div>
+        </div>
+        <aside id="detail-panel" class="detail-panel"></aside>
+    </div>
+
+    <!-- 4. Topic x section matrix ---------------------------------------->
+    <h3>4. Topic &times; bulletin section matrix</h3>
+    <p class="hint">
+        Rows are the bulletin&rsquo;s formal structure in document order; columns are the semantic
+        topics. Cell shade is the <em>share of the row&rsquo;s passages</em> in that topic, with the passage
+        count printed inside. The bars on the right show each row&rsquo;s size, and the diversity value
+        is the entropy of its topic mix (0 = one topic only). Click a cell to highlight its
+        passages on the map, a row label to filter by that section, or a column header to filter by
+        that topic. Selecting a point on the map outlines its cell (solid) and the cells of its
+        nearest neighbours (dashed). While a search is active, cells count only matching passages.
+    </p>
+
+    <div class="lab8-controls">
+        <span>Rows:</span>
+        <label><input type="radio" name="level" value="chapter" checked> Chapters (10 Parts)</label>
+        <label><input type="radio" name="level" value="section"> Sections (majors listed individually)</label>
+    </div>
+
+    <div id="matrix-note" class="matrix-note"></div>
+    <div id="topic-matrix"></div>
+    <div class="legend-grid">
+        <div>
+            <span class="legend-title">Cell shade &mdash; share of the row&rsquo;s passages</span>
+            <div id="matrix-legend" class="legend-row"></div>
+        </div>
+        <div>
+            <span class="legend-title">Outline</span>
+            <div id="matrix-outline-legend" class="legend-row"></div>
+        </div>
+    </div>
+
+    <div id="tooltip" class="tooltip"></div>
+
+    <!-- 5. Findings ------------------------------------------------------->
+    <h3>5. Semantic findings</h3>
+    <p class="hint">
+        Each answer can be reproduced in the views above; passage ids (e.g. p0223) can be found by
+        clicking the points mentioned or by searching for a phrase from the quoted text.
+    </p>
+
+    <ol class="questions">
+        <li>
+            <strong>What are the major semantic topics?</strong><br>
+            KMeans on the embeddings gives ten topics. Four are about the rules of study:
+            <em>Grading, CR/NC &amp; Academic Standing</em> (88 passages), <em>Credit Transfer,
+            Placement &amp; Study Away</em> (77), <em>Leave, Withdrawal &amp; Fees</em> (72) and
+            <em>Academic Integrity &amp; Grievances</em> (28). Two describe the institution and the
+            student experience: <em>Campus Life &amp; DKU Identity</em> (53) and <em>Advising &amp;
+            Academic Support</em> (33). The other four come from the majors chapter: <em>Major Overviews
+            &amp; Tracks</em> (65, descriptive prose) and three kinds of course lists, <em>STEM Course
+            Requirements</em> (69), <em>Humanities &amp; Social Sci. Major Courses</em> (43) and
+            <em>Humanities &amp; Social Sci. Electives</em> (47). On the map the course-list topics form
+            tight, separate islands, because tables of course codes read very differently from prose,
+            while the policy topics sit next to each other in one large continent.
+        </li>
+        <li>
+            <strong>Which topics appear across multiple formal sections?</strong><br>
+            In the chapter matrix, <em>Campus Life &amp; DKU Identity</em> appears in 8 of the 10 Parts,
+            and <em>Credit Transfer, Placement &amp; Study Away</em> and <em>Advising &amp; Academic
+            Support</em> in 7. In the section matrix, <em>Credit Transfer, Placement &amp; Study Away</em> is
+            the most spread-out topic (22 rows): it appears in The Curriculum (Degree Requirements), Academic
+            Procedures (Entrance Credit &amp; Placement, Transfer of Work Elsewhere and nine other sections),
+            Admission (application requirements) and Global Education &amp; Study Away (P8). Rules about how credit
+            is counted are therefore scattered over at least four Parts of the bulletin. <em>Grading, CR/NC &amp; Academic
+            Standing</em> (17 rows) and <em>Leave, Withdrawal &amp; Fees</em> (15 rows in six Parts: fees in P5, deadlines in P4, leave and withdrawal in P6)
+            also cut across the formal structure. The three course-list topics occur only in P10, apart from two STEM
+            passages in Degree Requirements.
+        </li>
+        <li>
+            <strong>Which formal sections contain the most semantically diverse content?</strong><br>
+            Among chapters, <em>P3 The Curriculum</em> has the highest diversity (entropy 2.42 bits over 52
+            passages). Its passages split between Advising &amp; Support (Signature Work, the Common Core),
+            Credit Transfer (credit totals, language placement), Grading and Major Overviews. <em>P10
+            Majors</em> (2.21) and <em>P6 Academic Procedures</em> (2.02) follow. <em>P7 Advising &amp;
+            Support</em> is the most uniform (entropy 0: all 10 passages in one topic) and <em>P5 Financial
+            Information</em> is nearly uniform (0.47: 24 of 26 in Leave, Withdrawal &amp; Fees). At section
+            level, <em>Degree Requirements</em> (2.13 over 40 passages) and the <em>Computation and Design</em>
+            major (2.15) are the most mixed, apart from the merged &ldquo;Other (P6)&rdquo; row.
+        </li>
+        <li>
+            <strong>Which passages from different sections are semantically similar?</strong><br>
+            Nearest-neighbour search finds several cross-chapter pairs that say nearly the same thing.
+            For example (cosine 0.92), p0151 in <em>Transfer of Work Taken Elsewhere</em> (P6), &ldquo;A Duke
+            Kunshan University student may receive credit for a maximum of 40 credits taken elsewhere&hellip;&rdquo;,
+            and p0340 in <em>Global Education &amp; Study Away</em> (P8), &ldquo;Students may transfer up to a maximum
+            of 40 credits taken outside of the Duke Kunshan University&hellip;&rdquo;. The grading rule for study abroad
+            in <em>Grading &amp; Grade Requirements</em> (p0223) has its twin in the Study Away section (p0341,
+            0.94), and the rule for Chinese-as-a-Second-Language placement appears in Degree Requirements (P3),
+            Entrance Credit &amp; Placement (P6) and Requirements for All Majors (P10) (p0047, p0148, p0384). A
+            reader looking up one of these rules in one place would miss the others.
+        </li>
+        <li>
+            <strong>Which passages appear unusual relative to their formal section?</strong><br>
+            The detail panel reports each passage&rsquo;s <em>typicality</em>: its cosine similarity to the average
+            embedding of its section. The least typical passages are the short Signature Work bullet points inside
+            <em>Degree Requirements</em> (p0067 &ldquo;Two senior capstone&hellip;&rdquo;, 0.33; p0069 &ldquo;One or more
+            experiential activities after year one&rdquo;, 0.36). They sit with Advising &amp; Academic Support, not
+            with the credit rules around them. The residence-life room-assignment passage in Student Affairs (p0352,
+            0.45) is drawn into <em>Leave, Withdrawal &amp; Fees</em> by its deadlines and deposits. The
+            opening essays of US Studies and Cultures and Movements (0.43) are unusual inside their own majors,
+            whose other passages are mostly course tables.
+        </li>
+        <li>
+            <strong>Do &ldquo;credit&rdquo;, &ldquo;graduation&rdquo;, &ldquo;registration&rdquo; and &ldquo;academic
+            integrity&rdquo; occur in one semantic region or across several topics?</strong><br>
+            <em>credit</em> is everywhere (259 passages). Most of that comes from course tables, where every course
+            ends with &ldquo;(4 credits)&rdquo;, but even the 108 prose passages spread over five topics: Grading &amp;
+            Standing (53), Credit Transfer (43), Leave &amp; Fees (6), Advising (4) and Campus Life (2). Credit is a
+            cross-cutting concept rather than a topic of its own. <em>graduation</em> (32
+            passages, 6 Parts) falls in three neighbouring policy topics: Grading &amp; Standing (14), Credit
+            Transfer (12) and Leave (6). <em>registration</em> is rare (9 passages) and mostly in the Leave &amp;
+            Withdrawal region (5), because registering is described together with return from leave and
+            deadlines. <em>academic integrity</em> is the only term that stays in one place: all 3 passages sit in the
+            <em>Academic Integrity &amp; Grievances</em> cluster.
+        </li>
+    </ol>
+
+    <!-- 6. Design description -------------------------------------------->
+    <section class="design-note">
+        <h4>Design description</h4>
+        <p>
+            Each of the 575 cleaned passages was embedded with the sentence-transformer
+            <code>all-MiniLM-L6-v2</code> (384-d, L2-normalised; <code>lab8/semantic_analysis.py</code>).
+            Passages over 180 words were split at sentence boundaries so the model&rsquo;s 256-token limit
+            never truncates them. UMAP (cosine metric, <code>n_neighbors=15</code>, <code>min_dist=0.15</code>,
+            <code>random_state=401</code>) projects the vectors to 2-D for display only. Topics come from KMeans
+            on the original 384-d vectors, not the 2-D map. Silhouette scores were low for every k (0.09&ndash;0.14),
+            so k = 10 was chosen for interpretability: k = 6 scored slightly higher but merged academic integrity
+            into grading and leave into fees. Each cluster was labelled by hand after reading the passages closest
+            to its centroid and its class-based TF-IDF terms.
+        </p>
+        <p>
+            On the map, <strong>position</strong> encodes semantic similarity, <strong>hue</strong> the nominal
+            topic, and <strong>area</strong> passage length. Ten hues are more than colour alone can separate
+            safely, so topic names are also printed at each cluster&rsquo;s centre, and the legend can isolate one
+            topic. The formal section is deliberately <em>not</em> encoded on the map; it is left to the matrix,
+            which uses a single-hue sequential shade for the share of the row&rsquo;s passages, so large chapters do
+            not wash out small ones, and marginal bars for size.
+        </p>
+        <p>
+            Both views share a single selection state. Search, section and topic filters, matrix cells, row labels
+            and column headers all narrow the same set of passages. The map dims everything else and the matrix
+            recounts. Clicking a passage outlines its matrix cell and its neighbours&rsquo; cells, so it is visible at
+            once when similar content lives in a different part of the bulletin. The detail panel shows the
+            passage&rsquo;s full hierarchy, page, topic and text, and its neighbours can be followed one click at a time.
+        </p>
+    </section>
+
+    <a href="../index.html">&larr; Back to home</a>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="lab8.js"></script>
 
 </body>
-
 </html>

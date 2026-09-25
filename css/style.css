@@ -343,3 +343,482 @@ ol.questions li {
     stroke-width: 3px;
     stroke-linejoin: round;
 }
+
+/* Lab 8 */
+body.lab8-page {
+    max-width: 1320px;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 20px 36px;
+    margin: 10px 0 20px;
+}
+
+.chart-title {
+    margin: 6px 0 8px;
+    font-size: 0.95rem;
+}
+
+.overview-svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.axis-label,
+.bar-value,
+.legend-text {
+    font-size: 11px;
+    fill: #333;
+}
+
+.bar-value {
+    fill: #52514e;
+}
+
+.panel-title {
+    font-size: 11px;
+    font-weight: bold;
+    fill: #52514e;
+}
+
+.bar {
+    fill: #2a78d6;
+}
+
+.bar:hover {
+    fill: #1c5cab;
+}
+
+.baseline {
+    stroke: #b7b2a7;
+}
+
+.axis text {
+    font-size: 10px;
+    fill: #52514e;
+}
+
+.axis path,
+.axis line {
+    stroke: #c7c2b6;
+}
+
+.lab8-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 16px;
+    margin: 14px 0 10px;
+    font-size: 0.9rem;
+}
+
+.lab8-controls input[type=text] {
+    flex: 1 1 240px;
+    min-width: 200px;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+    border: 1px solid #b7b2a7;
+    border-radius: 4px;
+}
+
+.lab8-controls select {
+    max-width: 260px;
+    padding: 4px;
+    font-size: 0.85rem;
+}
+
+.lab8-controls button,
+.link-button {
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    border: 1px solid #b7b2a7;
+    border-radius: 4px;
+    background: #f9f9f7;
+    cursor: pointer;
+}
+
+.lab8-controls button:hover,
+.link-button:hover {
+    background: #eeece6;
+}
+
+.match-count {
+    font-size: 0.85rem;
+    color: #52514e;
+}
+
+.map-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 18px;
+    align-items: start;
+}
+
+@media (max-width: 1000px) {
+    .map-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+#semantic-map {
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.map-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: grab;
+}
+
+.map-svg:active {
+    cursor: grabbing;
+}
+
+.map-bg {
+    fill: #fcfcfb;
+}
+
+.passage {
+    stroke: #fff;
+    stroke-width: 0.8px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.passage.is-selected,
+.legend-dot.is-selected {
+    stroke: #111;
+    stroke-width: 2.5px;
+}
+
+.passage.is-neighbor,
+.legend-dot.is-neighbor {
+    stroke: #111;
+    stroke-width: 1.5px;
+}
+
+.legend-dot {
+    fill: #9c9a92;
+    stroke: #fff;
+}
+
+.neighbor-link {
+    stroke: #111;
+    stroke-width: 1.2px;
+    stroke-dasharray: 3 3;
+    opacity: 0.7;
+}
+
+.topic-label {
+    font-size: 11px;
+    font-weight: bold;
+    fill: #222;
+    paint-order: stroke;
+    stroke: #fff;
+    stroke-width: 3.5px;
+    stroke-linejoin: round;
+}
+
+.map-legend {
+    margin-top: 10px;
+}
+
+.legend-wide {
+    grid-column: 1 / -1;
+}
+
+.legend-button {
+    padding: 3px 8px;
+    border: 1px solid #e0ddd5;
+    border-radius: 12px;
+    background: #fff;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.legend-button:hover {
+    background: #eeece6;
+}
+
+.legend-chip.is-off {
+    opacity: 0.35;
+}
+
+.detail-panel {
+    max-height: 820px;
+    overflow-y: auto;
+    padding: 14px 16px;
+    background: #f9f9f7;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+}
+
+.detail-panel h4 {
+    margin: 14px 0 6px;
+}
+
+.panel-kicker {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #52514e;
+}
+
+.detail-panel .panel-title {
+    font-size: 1rem;
+    fill: none;
+    margin-top: 4px;
+}
+
+.crumbs {
+    margin: 4px 0 8px;
+    color: #52514e;
+    font-size: 0.8rem;
+}
+
+.crumbs span {
+    color: #9c9a92;
+}
+
+.facts {
+    display: grid;
+    grid-template-columns: 82px 1fr;
+    gap: 3px 8px;
+    margin: 0 0 10px;
+}
+
+.facts dt {
+    color: #52514e;
+    font-weight: bold;
+}
+
+.facts dd {
+    margin: 0;
+}
+
+.passage-text {
+    background: #fff;
+    border-left: 3px solid #b7b2a7;
+    padding: 8px 10px;
+    margin: 8px 0;
+}
+
+.muted {
+    color: #6b6a65;
+    font-size: 0.8rem;
+}
+
+.topic-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+}
+
+.topic-chip .swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex: none;
+}
+
+.neighbor-list,
+.match-list,
+.topic-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.neighbor-list li,
+.match-list li,
+.topic-list li {
+    padding: 7px 8px;
+    margin-bottom: 6px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.neighbor-list li:hover,
+.match-list li:hover,
+.topic-list li:hover {
+    border-color: #9c9a92;
+}
+
+.neighbor-list li.cross {
+    border-left: 3px solid #52514e;
+}
+
+.nb-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sim {
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+.nb-meta {
+    font-size: 0.78rem;
+    color: #52514e;
+}
+
+.cross-tag {
+    margin-left: 4px;
+    padding: 0 5px;
+    border-radius: 3px;
+    background: #52514e;
+    color: #fff;
+    font-size: 0.7rem;
+}
+
+.nb-text {
+    font-size: 0.8rem;
+    color: #333;
+}
+
+.tip-text {
+    display: inline-block;
+    max-width: 320px;
+    font-size: 12px;
+    color: #333;
+}
+
+.tooltip {
+    max-width: 360px;
+    z-index: 10;
+}
+
+#topic-matrix {
+    overflow-x: auto;
+    padding: 10px 6px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    background: #fff;
+}
+
+.matrix-svg {
+    display: block;
+}
+
+.matrix-note {
+    min-height: 20px;
+    font-size: 0.85rem;
+    color: #52514e;
+}
+
+.col-head,
+.row-head,
+.cell {
+    cursor: pointer;
+}
+
+.col-label,
+.col-total {
+    font-size: 10.5px;
+    fill: #333;
+}
+
+.col-total {
+    fill: #6b6a65;
+}
+
+.row-label {
+    font-size: 11px;
+    fill: #222;
+}
+
+.row-chapter {
+    font-size: 10px;
+    font-weight: bold;
+    fill: #52514e;
+}
+
+.row-bar {
+    fill: #b7b2a7;
+}
+
+.row-total,
+.row-entropy {
+    font-size: 10px;
+    fill: #52514e;
+    font-variant-numeric: tabular-nums;
+}
+
+.row-head:hover .row-label,
+.col-head:hover .col-label {
+    text-decoration: underline;
+}
+
+.is-off {
+    opacity: 0.25;
+}
+
+.cell-rect {
+    stroke: none;
+}
+
+.cell:hover .cell-rect {
+    stroke: #52514e;
+    stroke-width: 1px;
+}
+
+.cell.is-picked .cell-rect,
+.legend-picked {
+    stroke: #111;
+    stroke-width: 2.5px;
+}
+
+.cell.is-neighbor-cell .cell-rect,
+.legend-nb {
+    stroke: #111;
+    stroke-width: 1.5px;
+    stroke-dasharray: 3 2;
+}
+
+.legend-picked,
+.legend-nb {
+    fill: #9ec5f4;
+}
+
+.cell-value {
+    pointer-events: none;
+    font-variant-numeric: tabular-nums;
+}
+
+.chapter-sep {
+    stroke: #c7c2b6;
+    stroke-width: 1px;
+}
+
+/* Lab 1's global `svg rect:hover` recolour must not reach Lab 8's rects */
+.lab8-page .map-bg,
+.lab8-page .map-bg:hover {
+    fill: #fcfcfb;
+}
+
+.lab8-page .row-bar:hover {
+    fill: #b7b2a7;
+}
+
+.lab8-page .bar:hover {
+    fill: #1c5cab;
+}
+
+.lab8-page .legend-picked:hover,
+.lab8-page .legend-nb:hover {
+    fill: #9ec5f4;
+}

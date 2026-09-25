@@ -1,0 +1,11 @@
+cluster,cluster_name,n,top_terms,representative_id,n_chapters
+0,Humanities & Social Sci. Electives,47,"polsci, econ, hist, pubpol, culanth, phil, middle east, culanth polsci",p0615,1
+1,Academic Integrity & Grievances,28,"complaint, grounds, academic integrity, grade, resolution, instructor, violations, review case",p0305,2
+2,"Grading, CR/NC & Academic Standing",88,"nc, cr, cr nc, grade, nc basis, result academic, graduating, permission",p0167,6
+3,Humanities & Social Sci. Major Courses,43,"hist, mediart, lit, polsci, recommended major, electives recommended, ethldr, history level",p0725,1
+4,Advising & Academic Support,33,"success, academic success, strategies, coaching, product, peer, independent study, academic advising",p0061,7
+5,Campus Life & DKU Identity,53,"diverse, residence, club, excursions, mission, higher education, facilities, residence life",p0009,8
+6,STEM Course Requirements,69,"biol, math, phys, calculus, chem, envir, probability, calculus math",p0410,2
+7,"Leave, Withdrawal & Fees",72,"return, leave absence, medical leave, deposit, fee, fees, absence, leave",p0264,6
+8,"Credit Transfer, Placement & Study Away",77,"placement, nc, cr nc, ap, cr, prior matriculation, taught, ipc",p0153,7
+9,Major Overviews & Tracks,65,"molecular, political science, discipline, tracks, political, track designed, science major, bioscience",p0517,4
