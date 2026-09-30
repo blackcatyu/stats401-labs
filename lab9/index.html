@@ -1,27 +1,156 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <title>Lab 9</title>
+    <title>Lab 9 - Geospatial Visualization</title>
 
+    <link rel="stylesheet"
+          href="../css/style.css">
 </head>
 
-<body>
+<body class="lab9-page">
 
-    <h1>Lab 9</h1>
+<header>
+    <h1>STATS 401</h1>
+    <p>Data Acquisition and Visualization</p>
+</header>
+
+<nav class="lab-nav">
+    <a href="../lab1/index.html">Lab 1</a>
+    <a href="../lab2/index.html">Lab 2</a>
+    <a href="../lab3/index.html">Lab 3</a>
+    <a href="../lab4/index.html">Lab 4</a>
+    <a href="../lab5/index.html">Lab 5</a>
+    <a href="../lab6/index.html">Lab 6</a>
+    <a href="../lab7/index.html">Lab 7</a>
+    <a href="../lab8/index.html">Lab 8</a>
+    <a href="../lab9/index.html">Lab 9</a>
+    <a href="../lab10/index.html">Lab 10</a>
+    <a href="https://blackcatyu.github.io/stats401-individual-project/">Visualization Critique and Redesign</a>
+</nav>
+
+<main>
+    <h2>Lab 9: 2025 GDP as a Choropleth and as a Dorling Cartogram</h2>
+
+    <!-- 1. Dataset description -------------------------------------------->
+    <h3>1. Dataset description</h3>
 
     <p>
-        Lab 9 will be added here.
+        <strong>Statistics:</strong> <code>data/lab9_gdp_2025_top50.csv</code>, the 50 largest economies by
+        nominal GDP in 2025 (current prices, billions of U.S. dollars), from the IMF
+        <em>World Economic Outlook</em>, October 2025. Some values are IMF staff estimates and may be
+        revised. The range is wide: the United States ($30.6 trillion) is about 100 times the 50th economy,
+        Kazakhstan ($300 billion), and the top two economies alone make up 46% of the top-50 total.
     </p>
 
-    <a href="../index.html">
-        Back to home
-    </a>
+    <p>
+        <strong>Geography:</strong> <code>data/lab9_world.geojson</code>, country boundaries from
+        <a href="https://www.naturalearthdata.com/">Natural Earth</a> 1:50m Admin 0, reduced to two
+        properties (<code>iso3</code>, <code>name</code>), simplified with mapshaper, with Antarctica removed.
+        The 1:50m scale is used because the coarser 1:110m file has no Singapore or Hong Kong.
+        The join key is Natural Earth&rsquo;s <code>ADM0_A3</code> field rather than <code>ISO_A3</code>,
+        because <code>ISO_A3</code> is <code>-99</code> for France and Norway.
+    </p>
+
+    <p class="join-check" id="join-check">Checking the join&hellip;</p>
+
+    <!-- Shared selection ---------------------------------------------------->
+    <div class="lab9-controls" id="lab9-controls">
+        <label for="country-select">Find an economy</label>
+        <select id="country-select">
+            <option value="">None selected</option>
+        </select>
+        <button type="button" id="clear-selection">Clear selection</button>
+        <span class="selection-readout" id="selection-readout" aria-live="polite"></span>
+    </div>
+    <p class="hint">
+        Hover a country or circle to highlight it in both maps; click it (or press Enter) to keep it highlighted
+        while you scroll. Click the ocean to clear.
+    </p>
+
+    <!-- 2. Choropleth ------------------------------------------------------>
+    <h3>2. 2025 GDP choropleth</h3>
+    <div class="map-head">
+        <h4 class="chart-title">Nominal GDP, 2025: colour shows GDP on a log scale</h4>
+        <button type="button" class="reset-zoom" id="reset-choropleth">Reset zoom</button>
+    </div>
+    <div class="map-frame" id="choropleth"></div>
+    <p class="hint">Scroll or pinch to zoom, drag to pan. Hatched countries are outside the top-50 dataset (no data, not zero).</p>
+
+    <!-- 3. Cartogram ------------------------------------------------------->
+    <h3>3. 2025 GDP Dorling cartogram</h3>
+    <div class="map-head">
+        <h4 class="chart-title">Nominal GDP, 2025: the area of each circle is proportional to GDP</h4>
+        <label class="toggle">
+            <input type="checkbox" id="toggle-outlines" checked>
+            Show country outlines
+        </label>
+        <button type="button" class="reset-zoom" id="reset-cartogram">Reset zoom</button>
+    </div>
+    <div class="map-frame" id="cartogram"></div>
+    <p class="hint">
+        Each of the 50 economies is one circle, placed as close as possible to where the country is and pushed
+        apart just enough not to overlap. The faint outlines are only a geographic reference; economies outside
+        the dataset get no circle.
+    </p>
+
+    <!-- 4. Design and comparison ------------------------------------------->
+    <section class="design-notes">
+        <h3>4. Design and comparison</h3>
+
+        <h4>Design choices</h4>
+        <p>
+            Both maps use the same <strong>Equal Earth</strong> projection, so a circle sits where its country
+            sits on the choropleth, and land area on the choropleth is not inflated toward the poles the way it
+            is on Mercator.
+        </p>
+        <p>
+            The choropleth uses a <strong>logarithmic</strong> sequential scale. With a linear scale the United
+            States and China take the dark end and the other 48 economies, most between $300 billion and
+            $2.5 trillion, fall into a few pale shades that are hard to tell apart. On a log scale each step of
+            colour means the same <em>ratio</em> of GDP, so Germany, India, Brazil and Poland become distinguishable.
+            The cost is that colour differences understate absolute gaps; the legend ticks and the tooltip carry
+            the exact values. Missing data is hatched so it cannot be read as the lightest colour.
+        </p>
+        <p>
+            The cartogram uses a <strong>square-root radius</strong> scale so that circle <em>area</em>, not
+            radius, is proportional to GDP. All circles share one colour so that area is the only quantitative
+            channel.
+        </p>
+
+        <h4>Comparison</h4>
+        <p id="comparison-text">
+            <!-- Draft: rewrite in your own words before submitting. -->
+            On the choropleth, the most prominent countries are the physically largest ones: Russia, Canada, the
+            United States, China, Brazil and Australia, whose medium-to-dark fills cover much of the map. On the
+            Dorling cartogram, the United States and China dominate, followed by Germany, Japan, India and the
+            United Kingdom. Russia, Canada, Australia, Brazil, Kazakhstan and Argentina shrink sharply, while
+            Japan, South Korea, the Netherlands, Switzerland, Taiwan, Singapore and Hong Kong grow from slivers
+            or dots into clearly visible circles; Europe and East Asia become large clusters and Africa is almost
+            empty.
+        </p>
+        <p>
+            The choropleth preserves true shapes, borders, adjacency and relative land area, so it supports
+            geographic tasks: finding regional patterns, comparing neighbours, and seeing where data are missing.
+            The cartogram keeps only approximate location and discards shape and land area; circles are pushed
+            away from their true positions in crowded regions. In exchange it supports magnitude tasks: ranking
+            economies, estimating how many times larger one is than another, and seeing concentration (the top
+            two economies are 46% of the top-50 total). Switching from colour to area changes perception most:
+            colour on land area makes large, sparsely populated countries look economically important, whereas
+            area makes the global economy look concentrated in a few places.
+        </p>
+    </section>
+
+    <a href="../index.html">&larr; Back to home</a>
+</main>
+
+<div id="tooltip" class="tooltip" role="status"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="lab9.js"></script>
 
 </body>
-
 </html>

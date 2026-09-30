@@ -822,3 +822,216 @@ body.lab8-page {
 .lab8-page .legend-nb:hover {
     fill: #9ec5f4;
 }
+
+/* Lab 9 */
+body.lab9-page {
+    max-width: 1080px;
+}
+
+.lab9-page .join-check {
+    padding: 8px 12px;
+    background: #f4f8f6;
+    border-left: 3px solid #41a6a0;
+    font-size: 0.9rem;
+}
+
+.lab9-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+    margin: 22px 0 4px;
+    font-size: 0.9rem;
+}
+
+.lab9-controls select,
+.lab9-page .reset-zoom,
+.lab9-controls button {
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 5px 10px;
+    border: 1px solid #c9c6c1;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+}
+
+.lab9-page button:hover {
+    background: #f1f1f1;
+}
+
+.lab9-page button:focus-visible,
+.lab9-page select:focus-visible,
+.lab9-page .country:focus-visible,
+.lab9-page .bubble:focus-visible {
+    outline: 2px solid #253494;
+    outline-offset: 2px;
+}
+
+.selection-readout {
+    font-weight: bold;
+    color: #253494;
+}
+
+.map-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 6px 16px;
+}
+
+.map-head .chart-title {
+    flex: 1 1 320px;
+}
+
+.map-head .toggle {
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.map-frame {
+    border: 1px solid #e3e1dd;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.map-frame svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: grab;
+}
+
+.map-frame svg:active {
+    cursor: grabbing;
+}
+
+.lab9-page .ocean {
+    fill: #f2f7f9;
+}
+
+.lab9-page .country {
+    stroke: #fff;
+    stroke-width: 0.5px;
+    vector-effect: non-scaling-stroke;
+    transition: fill-opacity 0.15s;
+}
+
+.lab9-page .country.has-data {
+    cursor: pointer;
+}
+
+.lab9-page .country.is-dimmed {
+    fill-opacity: 0.4;
+}
+
+.lab9-page .country.is-active {
+    stroke: #000;
+    stroke-width: 2px;
+}
+
+.lab9-page .locator {
+    fill: none;
+    stroke: #000;
+    stroke-width: 2px;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+}
+
+.lab9-page .ghost {
+    fill: #ebe9e5;
+    stroke: #fff;
+    stroke-width: 0.5px;
+    vector-effect: non-scaling-stroke;
+    pointer-events: none;
+}
+
+.lab9-page .ghost.is-active {
+    fill: #d6d2cb;
+    stroke: #555;
+    stroke-dasharray: 3 2;
+    stroke-width: 1px;
+}
+
+.lab9-page .bubble {
+    cursor: pointer;
+}
+
+.lab9-page .bubble circle {
+    fill: #1d91c0;
+    fill-opacity: 0.9;
+    stroke: #fff;
+    stroke-width: 1px;
+    vector-effect: non-scaling-stroke;
+    transition: fill-opacity 0.15s;
+}
+
+.lab9-page .bubble.is-dimmed circle {
+    fill-opacity: 0.3;
+}
+
+.lab9-page .bubble.is-active circle {
+    fill: #253494;
+    fill-opacity: 1;
+    stroke: #000;
+    stroke-width: 2px;
+}
+
+.lab9-page .bubble-label {
+    fill: #fff;
+    text-anchor: middle;
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.lab9-page .bubble-value {
+    font-weight: normal;
+}
+
+/* Legends ignore the pointer, which also keeps the Lab 1
+   "svg rect:hover" rule from recolouring the legend swatches */
+.lab9-page .map-legend {
+    pointer-events: none;
+}
+
+.lab9-page .legend-heading {
+    font-size: 11px;
+    font-weight: bold;
+    fill: #333;
+}
+
+.lab9-page .legend-axis text {
+    font-size: 10px;
+    fill: #52514e;
+}
+
+.lab9-page .legend-axis path,
+.lab9-page .legend-axis line {
+    stroke: #8a8680;
+}
+
+.lab9-page .legend-axis .domain {
+    display: none;
+}
+
+.lab9-page .legend-circle {
+    fill: none;
+    stroke: #6b6760;
+    stroke-width: 1px;
+}
+
+.lab9-page .legend-leader {
+    stroke: #9a968f;
+    stroke-dasharray: 2 2;
+}
+
+
+.lab9-page .tooltip {
+    line-height: 1.45;
+}
+
+.lab9-page .design-notes {
+    max-width: 760px;
+}
